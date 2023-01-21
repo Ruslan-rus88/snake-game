@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,300;1,400;1,500&family=Solitreo&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="snake">
+      <div class="snake__wrapper">
+        <h1 class="snake__title">Snake</h1>
+        <div class="score">0</div>
+        <button class="start" onclick="startGame()">Start Game</button>
+        <div id="container" class="container"></div>
+
+        <div class="snake__box snake__box--config config">
+          <div class="config__box config__box--title">
+            <h2 class="config__title">Select configuration</h2>
+          </div>
+          <div class="config__box config__box--options">
+            <form class="config__form">
+              <button type="submit" onsubmit="configurationSelected()">
+                Select
+              </button>
+              <label class="config__label">5 * 5</label>
+            </form>
+            <!-- <div class="config__option">5 * 5</div>
+            <div class="config__option">10 * 10</div>
+            <div class="config__option">20 * 20</div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
