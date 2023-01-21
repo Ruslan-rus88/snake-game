@@ -26,19 +26,49 @@
             <h2 class="config__title">Select configuration</h2>
           </div>
           <div class="config__box config__box--options">
-            <form class="config__form">
-              <button type="submit" onsubmit="configurationSelected()">
+            <form id="config" class="config__form">
+              <label class="input">
+                <span class="input__label">5 x 5</span>
+                <input
+                  type="radio"
+                  id="5"
+                  class="input__value"
+                  value="5"
+                  name="mode"
+                  checked
+                />
+              </label>
+              <label class="input">
+                <span class="input__label">10 x 10</span>
+                <input
+                  type="radio"
+                  id="10"
+                  class="input__value"
+                  value="10"
+                  name="mode"
+                />
+              </label>
+              <label class="input">
+                <span class="input__label">20 x 20</span>
+                <input
+                  type="radio"
+                  id="20"
+                  class="input__value"
+                  value="20"
+                  name="mode"
+                />
+              </label>
+
+              <button type="button" onclick="configurationSelected()">
                 Select
               </button>
-              <label class="config__label">5 * 5</label>
             </form>
-            <!-- <div class="config__option">5 * 5</div>
-            <div class="config__option">10 * 10</div>
-            <div class="config__option">20 * 20</div> -->
           </div>
         </div>
       </div>
     </div>
+
+    <button onclick="pause()">pause</button>
 
     <script src="./script.js"></script>
   </body>

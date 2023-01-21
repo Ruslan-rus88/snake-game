@@ -24,19 +24,54 @@ body {
 }
 
 .container {
-  border: 1px solid #000;
   display: none;
-  width: fit-content;
+  width: 500px;
+  height: 500px;
+  background-color: rgb(224, 242, 227);
+  box-shadow: 0 6px 14px 3px rgba(0, 0, 0, 0.3);
 }
 
 .item {
-  background-color: rgb(67, 66, 66);
+  position: relative;
+  background-color: rgb(108, 106, 106);
   z-index: 2;
+}
+
+.item:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 10%;
+  height: 10%;
+  background-color: #fff;
+  border-radius: 50%;
 }
 
 .head {
   background-color: rgb(29, 29, 29);
   z-index: 3;
+}
+
+.tail {
+  border: 1px solid #000;
+}
+
+.tail.r {
+  border-radius: 50% 0 0 50%;
+}
+
+.tail.l {
+  border-radius: 0 50% 50% 0;
+}
+
+.tail.u {
+  border-radius: 0 0 50% 50%;
+}
+
+.tail.d {
+  border-radius: 50% 50% 0 0;
 }
 
 .food {
@@ -83,4 +118,46 @@ body {
 .config__title {
   font-weight: 400;
   margin-bottom: 20px;
+}
+
+.config__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rr,
+.ll {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.uu,
+.dd {
+  border-right: 1px solid #000;
+  border-left: 1px solid #000;
+}
+
+.lu,
+.dr {
+  border-radius: 0 100% 0 0;
+  border-right: 1px solid #000;
+}
+
+.ru,
+.dl {
+  border-radius: 100% 0 0 0;
+  border-left: 1px solid #000;
+}
+
+.ld,
+.ur {
+  border-radius: 0 0 100% 0;
+  border-bottom: 1px solid #000;
+}
+
+.rd,
+.ul {
+  border-radius: 0 0 0 100%;
+  border-left: 1px solid #000;
 }

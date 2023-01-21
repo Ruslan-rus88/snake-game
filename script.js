@@ -1,5 +1,6 @@
 const container = document.getElementById('container');
 const scoreContainer = document.querySelector('.score');
+const configPopup = document.querySelector('.config');
 const defaultDirection = 'r';
 const defaultColumns = 10;
 const defaultRows = 10;
@@ -35,7 +36,7 @@ function startGame() {
     resetGame();
     isGameStarted = true;
     monitorMovements();
-    selectColumnsAndRows();
+    showConfigPopup();
     addHead();
     addFood();
 }
@@ -68,7 +69,6 @@ function resetFood() {
 function resetInterval() {
     intervalMS = defaultIntervalMS;
     if (interval) {
-        console.log({ interval });
         clearInterval(interval);
     }
 }
@@ -104,11 +104,22 @@ function monitorMovements() {
     );
 }
 
-function selectColumnsAndRows() {
-    columns = prompt('Please select how many columns in the playground');
-    rows = prompt('Please select how many rows in the playground');
-    container.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
-    container.style.gridTemplateRows = `repeat(${rows}, 100px)`;
+function showConfigPopup() {
+    configPopup.style.display = 'block';
+}
+
+function configurationSelected() {
+    const mode = document.querySelector("input[type='radio'][name=mode]:checked");
+    const value = +mode.value
+    columns = value;
+    rows = value;
+    configPopup.style.display = 'none';
+    updatePlayArea();
+}
+
+function updatePlayArea() {
+    container.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    container.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
     container.style.display = 'grid';
 }
 
@@ -180,7 +191,21 @@ function updateView() {
     for (let i = 0; i < coordinates.length; i++) {
         items[i].style.gridColumn = coordinates[i].col;
         items[i].style.gridRow = coordinates[i].row;
+        updateItemsClassName(items[i], i, coordinates.length - 1)
     }
+}
+
+function updateItemsClassName(item, index, lastIndex) {
+    if (index === 0) {
+        item.className = 'head item';
+        return
+    }
+    if (index !== lastIndex) {
+        const customClassName = coordinates[index - 1].direction + coordinates[index].direction
+        item.className = 'item ' + customClassName
+        return;
+    }
+    item.className = `item tail ${coordinates[index - 1].direction}`
 }
 
 function getUpdatedHeadCoordinates(coordinates) {
@@ -265,6 +290,7 @@ function isNewHeadValid(updatedHeadCoordinates) {
     return valid;
 }
 
-function configurationSelected() {
-    console.log('configuration selected');
+function pause() {
+    console.log(coordinates);
+    clearInterval(interval);
 }
