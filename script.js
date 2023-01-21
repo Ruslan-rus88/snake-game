@@ -1,6 +1,6 @@
 const container = document.getElementById('container');
 const scoreContainer = document.querySelector('.score');
-const configPopup = document.querySelector('.config');
+const configPopup = document.querySelector('.snake__box--config');
 const defaultDirection = 'r';
 const defaultColumns = 10;
 const defaultRows = 10;
@@ -20,6 +20,7 @@ const defaultFoodCoordinates = {
 let interval = undefined;
 let isGameStarted, columns, rows, direction, coordinates, foodCoordinates, intervalMS;
 setDefaultParams()
+monitorMovements();
 
 // ----------Functions-----------//
 function setDefaultParams() {
@@ -35,19 +36,15 @@ function setDefaultParams() {
 function startGame() {
     resetGame();
     isGameStarted = true;
-    monitorMovements();
     showConfigPopup();
-    addHead();
-    addFood();
 }
 
 function resetGame() {
+    isGameStarted = false;
     setDefaultParams();
     resetScore();
     resetContainer();
-    resetFood();
     resetInterval();
-    isGameStarted = false;
 }
 
 function resetScore() {
@@ -56,7 +53,6 @@ function resetScore() {
 
 function resetContainer() {
     container.innerHTML = '';
-    container.style.display = 'none';
 }
 
 function resetFood() {
@@ -99,7 +95,9 @@ function monitorMovements() {
                 default:
                     break;
             }
-            startMovement();
+            if (isGameStarted) {
+                startMovement();
+            }
         }
     );
 }
@@ -115,6 +113,8 @@ function configurationSelected() {
     rows = value;
     configPopup.style.display = 'none';
     updatePlayArea();
+    addHead();
+    addFood();
 }
 
 function updatePlayArea() {
@@ -126,10 +126,8 @@ function updatePlayArea() {
 function addHead() {
     const head = document.createElement('div');
     head.className = 'item head';
-
-    const headCoordinates = coordinates[0];
-    head.style.gridColumn = headCoordinates.col;
-    head.style.gridRow = headCoordinates.row;
+    head.style.gridColumn = 1
+    head.style.gridRow = 1;
     container.appendChild(head);
 }
 
@@ -147,11 +145,13 @@ function startMovement() {
         return;
     }
 
+    decreaseScore();
     clearInterval(interval);
     updateCoordinates();
     updateView();
 
     interval = setInterval(() => {
+        decreaseScore();
         updateCoordinates();
         updateView();
     }, intervalMS);
@@ -178,6 +178,7 @@ function updateCoordinates() {
         updateScore();
         resetFood();
         addFood();
+        addSpecialFood();
     }
 
     const isHeadValid = isNewHeadValid(updatedHeadCoordinates);
@@ -197,7 +198,7 @@ function updateView() {
 
 function updateItemsClassName(item, index, lastIndex) {
     if (index === 0) {
-        item.className = 'head item';
+        item.className = `item head ${coordinates[index].direction}`;
         return
     }
     if (index !== lastIndex) {
@@ -242,6 +243,40 @@ function addFood() {
     food.style.gridRow = foodCoordinates.row;
 }
 
+function addSpecialFood() {
+    if (coordinates.length % 5 !== 0) {
+        return;
+    }
+
+    const specialFood = document.createElement('div');
+    specialFood.id = 'specialFood';
+    specialFood.className = 'specialFood';
+    container.appendChild(specialFood);
+
+    const specialFoodCoordinates = getRandomSpecialFoodCoordinates();
+    specialFood.style.gridColumn = specialFoodCoordinates.col;
+    specialFood.style.gridRow = specialFoodCoordinates.row;
+
+    setTimeout(() => {
+        removeSpecialFood();
+    }, 10 * defaultIntervalMS)
+}
+
+function getRandomSpecialFoodCoordinates() {
+    const coordinates = getRandomFoodCoordinates();
+    if (coordinates.row === foodCoordinates.row && coordinates.col === foodCoordinates.row) {
+        return getRandomSpecialFoodCoordinates();
+    }
+    return coordinates;
+}
+
+function removeSpecialFood() {
+    const specialFood = document.getElementById('specialFood');
+    if (specialFood) {
+        container.removeChild(specialFood);
+    }
+}
+
 function getRandomFoodCoordinates() {
     const randomCol = getRandomValue(columns);
     const randomRow = getRandomValue(rows);
@@ -274,6 +309,10 @@ function areHeadAndFoodCoordinatedEqual() {
 
 function updateScore() {
     scoreContainer.innerHTML = 100 + Number(scoreContainer.innerHTML);
+}
+
+function decreaseScore() {
+    scoreContainer.innerHTML = -1 + Number(scoreContainer.innerHTML);
 }
 
 function isNewHeadValid(updatedHeadCoordinates) {

@@ -18,51 +18,59 @@
       <div class="snake__wrapper">
         <h1 class="snake__title">Snake</h1>
         <div class="score">0</div>
-        <button class="start" onclick="startGame()">Start Game</button>
+        <button class="snake__btn snake__btn--new-game" onclick="startGame()">
+          New Game
+        </button>
         <div id="container" class="container"></div>
 
-        <div class="snake__box snake__box--config config">
-          <div class="config__box config__box--title">
-            <h2 class="config__title">Select configuration</h2>
-          </div>
-          <div class="config__box config__box--options">
-            <form id="config" class="config__form">
-              <label class="input">
-                <span class="input__label">5 x 5</span>
-                <input
-                  type="radio"
-                  id="5"
-                  class="input__value"
-                  value="5"
-                  name="mode"
-                  checked
-                />
-              </label>
-              <label class="input">
-                <span class="input__label">10 x 10</span>
-                <input
-                  type="radio"
-                  id="10"
-                  class="input__value"
-                  value="10"
-                  name="mode"
-                />
-              </label>
-              <label class="input">
-                <span class="input__label">20 x 20</span>
-                <input
-                  type="radio"
-                  id="20"
-                  class="input__value"
-                  value="20"
-                  name="mode"
-                />
-              </label>
+        <div class="snake__box snake__box--config">
+          <div class="config">
+            <div class="config__box config__box--title">
+              <h2 class="config__title">Select configuration</h2>
+            </div>
+            <div class="config__box config__box--options">
+              <form id="config" class="config__form">
+                <label class="input">
+                  <input
+                    type="radio"
+                    id="5"
+                    class="input__value"
+                    value="5"
+                    name="mode"
+                    checked
+                  />
+                  <div class="input__label">Small</div>
+                </label>
+                <label class="input">
+                  <input
+                    type="radio"
+                    id="10"
+                    class="input__value"
+                    value="10"
+                    name="mode"
+                  />
+                  <div class="input__label">Medium</div>
+                </label>
+                <label class="input">
+                  <input
+                    type="radio"
+                    id="20"
+                    class="input__value"
+                    value="20"
+                    name="mode"
+                  />
+                  <div class="input__label">Large</div>
+                </label>
 
-              <button type="button" onclick="configurationSelected()">
-                Select
-              </button>
-            </form>
+                <button
+                  class="config__btn"
+                  type="button"
+                  onclick="configurationSelected()"
+                >
+                  Start
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

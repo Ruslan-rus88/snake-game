@@ -33,7 +33,7 @@ body {
 
 .item {
   position: relative;
-  background-color: rgb(108, 106, 106);
+  background-color: rgb(128, 99, 91);
   z-index: 2;
 }
 
@@ -50,8 +50,38 @@ body {
 }
 
 .head {
-  background-color: rgb(29, 29, 29);
+  position: relative;
+  background-color: rgb(15, 132, 54);
+  border-radius: 10% 50% 50% 10%;
   z-index: 3;
+  overflow: hidden;
+}
+
+.head.l {
+  transform: rotate(180deg);
+}
+
+.head.d {
+  transform: rotate(90deg);
+}
+
+.head.u {
+  transform: rotate(-90deg);
+}
+
+.head:before {
+  position: absolute;
+  content: '';
+  width: 30%;
+  height: 30%;
+  background: rgb(255, 4, 20);
+  right: -15%;
+  top: 37%;
+  transform: rotate(45deg);
+}
+
+.head:after {
+  background: rgb(255, 4, 20);
 }
 
 .tail {
@@ -81,6 +111,13 @@ body {
   z-index: 1;
 }
 
+.specialFood {
+  background-color: rgb(238, 218, 43);
+  border-radius: 50%;
+  animation: pulse 0.3s ease-in infinite;
+  z-index: 1;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -91,6 +128,7 @@ body {
 }
 
 .snake__box--config {
+  display: none;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -160,4 +198,37 @@ body {
 .ul {
   border-radius: 0 0 0 100%;
   border-left: 1px solid #000;
+}
+
+.input {
+  position: relative;
+  margin: 5px;
+  text-align: center;
+}
+
+.input__value {
+  display: none;
+}
+
+.input__label {
+  min-width: 200px;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: rgb(242, 96, 96);
+}
+
+.input__label:hover {
+  cursor: pointer;
+  background-color: rgb(241, 58, 58);
+}
+
+.input__value:checked ~ .input__label {
+  background-color: rgb(6, 132, 6);
+}
+
+.config__btn {
+  padding: 10px 20px;
+  font-size: 20px;
+  margin-top: 20px;
+  cursor: pointer;
 }
