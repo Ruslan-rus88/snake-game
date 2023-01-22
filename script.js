@@ -1,4 +1,4 @@
-const container = document.getElementById('container');
+const playground = document.querySelector('.snake__box--playground');
 const scoreContainer = document.querySelector('.score');
 const configPopup = document.querySelector('.snake__box--config');
 const defaultDirection = 'r';
@@ -43,7 +43,7 @@ function resetGame() {
     isGameStarted = false;
     setDefaultParams();
     resetScore();
-    resetContainer();
+    resetPlayground();
     resetInterval();
 }
 
@@ -51,14 +51,14 @@ function resetScore() {
     scoreContainer.innerHTML = 0;
 }
 
-function resetContainer() {
-    container.innerHTML = '';
+function resetPlayground() {
+    playground.innerHTML = '';
 }
 
 function resetFood() {
     const food = document.getElementById('food');
     if (food) {
-        container.removeChild(food);
+        playground.removeChild(food);
     }
 }
 
@@ -112,15 +112,15 @@ function configurationSelected() {
     columns = value;
     rows = value;
     configPopup.style.display = 'none';
-    updatePlayArea();
+    updatePlayground();
     addHead();
     addFood();
 }
 
-function updatePlayArea() {
-    container.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-    container.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-    container.style.display = 'grid';
+function updatePlayground() {
+    playground.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+    playground.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    playground.style.display = 'grid';
 }
 
 function addHead() {
@@ -128,7 +128,7 @@ function addHead() {
     head.className = 'item head';
     head.style.gridColumn = 1
     head.style.gridRow = 1;
-    container.appendChild(head);
+    playground.appendChild(head);
 }
 
 function addItem(col, row) {
@@ -137,7 +137,7 @@ function addItem(col, row) {
 
     item.style.gridColumn = col;
     item.style.gridRow = row;
-    container.appendChild(item);
+    playground.appendChild(item);
 }
 
 function startMovement() {
@@ -234,9 +234,10 @@ function getUpdatedHeadCoordinates(coordinates) {
 
 function addFood() {
     const food = document.createElement('div');
+    food.innerHTML = '<img class="apple" src = "./assets/images/apple.png" />'
     food.id = 'food';
     food.className = 'food';
-    container.appendChild(food);
+    playground.appendChild(food);
 
     foodCoordinates = getRandomFoodCoordinates();
     food.style.gridColumn = foodCoordinates.col;
@@ -251,7 +252,7 @@ function addSpecialFood() {
     const specialFood = document.createElement('div');
     specialFood.id = 'specialFood';
     specialFood.className = 'specialFood';
-    container.appendChild(specialFood);
+    playground.appendChild(specialFood);
 
     const specialFoodCoordinates = getRandomSpecialFoodCoordinates();
     specialFood.style.gridColumn = specialFoodCoordinates.col;
@@ -273,7 +274,7 @@ function getRandomSpecialFoodCoordinates() {
 function removeSpecialFood() {
     const specialFood = document.getElementById('specialFood');
     if (specialFood) {
-        container.removeChild(specialFood);
+        playground.removeChild(specialFood);
     }
 }
 

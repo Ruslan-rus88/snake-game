@@ -1,3 +1,4 @@
+/*---General Styles---*/
 body {
   height: 100%;
   background-color: rgba(240, 236, 236, 0.8);
@@ -10,6 +11,7 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+/*---General Styles - END---*/
 
 .snake {
   padding: 20px 0;
@@ -23,7 +25,51 @@ body {
   align-items: center;
 }
 
-.container {
+.snake__title {
+}
+
+.snake__title--primary {
+  margin-bottom: 20px;
+}
+
+.snake__box {
+}
+
+.snake__box--info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 500px;
+}
+
+.snake__btn {
+  padding: 10px 20px;
+  border: none;
+  color: #fff;
+  font-family: 'Solitreo', cursive;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.snake__btn--new-game {
+  background-color: rgb(224, 10, 10);
+  box-shadow: 0 6px 14px 3px rgba(0, 0, 0, 0.3);
+}
+
+.snake__btn--new-game:hover {
+  cursor: pointer;
+  background-color: rgb(255, 2, 2);
+}
+
+.snake__score-box {
+  font-size: 18px;
+}
+
+.snake__title--secondary {
+}
+
+.snake__box--playground {
   width: 500px;
   height: 500px;
   background-color: rgb(224, 242, 227);
@@ -102,10 +148,18 @@ body {
 }
 
 .food {
-  background-color: rgb(232, 47, 47);
+  position: relative;
   border-radius: 50%;
   animation: pulse 0.3s ease-in infinite;
   z-index: 1;
+}
+
+.apple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .specialFood {
@@ -126,6 +180,13 @@ body {
 
 .snake__box--config {
   display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.config {
   position: absolute;
   top: 50%;
   left: 50%;

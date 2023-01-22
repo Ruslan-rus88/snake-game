@@ -16,12 +16,18 @@
   <body>
     <div class="snake">
       <div class="snake__wrapper">
-        <h1 class="snake__title">Snake</h1>
-        <div class="score">0</div>
-        <button class="snake__btn snake__btn--new-game" onclick="startGame()">
-          New Game
-        </button>
-        <div id="container" class="container"></div>
+        <h1 class="snake__title snake__title--primary">Snake</h1>
+        <div class="snake__box snake__box--info">
+          <div class="snake__score-box">
+            <span class="snake__title snake__title--secondary">Score: </span>
+            <span class="score">0</span>
+          </div>
+          <button class="snake__btn snake__btn--new-game" onclick="startGame()">
+            New Game
+          </button>
+        </div>
+
+        <div class="snake__box snake__box--playground"></div>
 
         <div class="snake__box snake__box--config">
           <div class="config">
@@ -77,7 +83,6 @@
     </div>
 
     <button onclick="pause()">pause</button>
-
     <script src="./script.js"></script>
   </body>
 </html>
