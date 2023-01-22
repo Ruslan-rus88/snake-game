@@ -24,7 +24,6 @@ body {
 }
 
 .container {
-  display: none;
   width: 500px;
   height: 500px;
   background-color: rgb(224, 242, 227);
@@ -86,22 +85,20 @@ body {
 
 .tail {
   border: 1px solid #000;
-}
-
-.tail.r {
+  border-right: none;
   border-radius: 50% 0 0 50%;
 }
 
 .tail.l {
-  border-radius: 0 50% 50% 0;
+  transform: rotate(180deg);
 }
 
 .tail.u {
-  border-radius: 0 0 50% 50%;
+  transform: rotate(-90deg);
 }
 
 .tail.d {
-  border-radius: 50% 50% 0 0;
+  transform: rotate(90deg);
 }
 
 .food {

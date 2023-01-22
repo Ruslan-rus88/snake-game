@@ -19,7 +19,7 @@ const defaultFoodCoordinates = {
 
 let interval = undefined;
 let isGameStarted, columns, rows, direction, coordinates, foodCoordinates, intervalMS;
-setDefaultParams()
+setDefaultParams();
 monitorMovements();
 
 // ----------Functions-----------//
