@@ -273,6 +273,7 @@ function addSpecialFood() {
 	}
 
 	const specialFood = document.createElement('div');
+	specialFood.innerHTML = '<img class="special-food-img" src = "./assets/images/coin.jpg" />';
 	specialFood.id = 'specialFood';
 	specialFood.className = 'specialFood';
 	playground.appendChild(specialFood);
@@ -290,7 +291,7 @@ function getRandomSpecialFoodCoordinates() {
 	const coordinates = getRandomFoodCoordinates();
 	if (
 		coordinates.row === foodCoordinates.row &&
-		coordinates.col === foodCoordinates.row
+		coordinates.col === foodCoordinates.col
 	) {
 		return getRandomSpecialFoodCoordinates();
 	}
@@ -313,6 +314,13 @@ function getRandomFoodCoordinates() {
 			return getRandomFoodCoordinates();
 		}
 	}
+	if (
+		randomCol === specialFoodCoordinates.col &&
+		randomRow === specialFoodCoordinates.row
+	) {
+		return getRandomFoodCoordinates();
+	}
+
 	return {
 		direction: undefined,
 		col: randomCol,
