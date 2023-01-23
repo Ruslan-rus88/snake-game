@@ -17,8 +17,7 @@ const defaultFoodCoordinates = {
 	row: undefined,
 };
 
-let interval = undefined;
-let isGameStarted,
+let interval, isGameStarted, foodCounter,
 	columns,
 	rows,
 	direction,
@@ -32,6 +31,7 @@ monitorMovements();
 // ----------Functions-----------//
 function setDefaultParams() {
 	isGameStarted = false;
+	foodCounter = 0;
 	columns = defaultColumns;
 	rows = defaultRows;
 	direction = defaultDirection;
@@ -80,6 +80,7 @@ function resetInterval() {
 function endGame() {
 	isGameStarted = false;
 	resetInterval();
+	updateBestScore();
 }
 
 function monitorMovements() {
@@ -98,10 +99,13 @@ function monitorMovements() {
 			case 'ArrowLeft':
 				direction = direction === 'r' ? 'r' : 'l';
 				break;
+			case ' ':
+				clearInterval(interval);
+				break;
 			default:
 				break;
 		}
-		if (isGameStarted) {
+		if (isGameStarted && name !== ' ') {
 			startMovement();
 		}
 	});
@@ -120,6 +124,7 @@ function configurationSelected() {
 	updatePlayground();
 	addHead();
 	addFood();
+	getBestScore();
 }
 
 function updatePlayground() {
@@ -130,6 +135,7 @@ function updatePlayground() {
 
 function addHead() {
 	const head = document.createElement('div');
+	head.innerHTML = '<img class="apple" src = "./assets/images/head.png" />';
 	head.className = 'item head';
 	head.style.gridColumn = 1;
 	head.style.gridRow = 1;
@@ -156,6 +162,9 @@ function startMovement() {
 	updateView();
 
 	interval = setInterval(() => {
+		if (!isGameStarted) {
+			return;
+		}
 		decreaseScore();
 		updateCoordinates();
 		updateView();
@@ -193,13 +202,16 @@ function checkIfFoodIsTaken(lastItemCoordinates) {
 		return;
 	}
 
-	coordinates.push(lastItemCoordinates);
-	addItem(lastItemCoordinates.col, lastItemCoordinates.row);
+	foodCounter++;
+	if (coordinates.length < (rows * columns) - 6) {
+		coordinates.push(lastItemCoordinates);
+		addItem(lastItemCoordinates.col, lastItemCoordinates.row);
+		updateGameSpeed();
+	}
 	updateScore();
 	resetFood();
 	addFood();
 	addSpecialFood();
-	updateGameSpeed();
 }
 
 function checkIfSpecialFoodIsTaken() {
@@ -268,12 +280,13 @@ function addFood() {
 }
 
 function addSpecialFood() {
-	if (coordinates.length % 5 !== 0) {
+	if (foodCounter % 5 !== 0) {
 		return;
 	}
 
 	const specialFood = document.createElement('div');
-	specialFood.innerHTML = '<img class="special-food-img" src = "./assets/images/coin.jpg" />';
+	specialFood.innerHTML =
+		'<img class="special-food-img" src = "./assets/images/coin.jpg" />';
 	specialFood.id = 'specialFood';
 	specialFood.className = 'specialFood';
 	playground.appendChild(specialFood);
@@ -369,13 +382,42 @@ function isNewHeadValid(updatedHeadCoordinates) {
 }
 
 function updateGameSpeed() {
-	const index = rows >= 10 ? 10 : 5
+	const index = rows >= 10 ? 10 : 5;
 	if (coordinates.length % index === 0) {
 		intervalMS = intervalMS * 0.85;
 	}
 }
 
-function pause() {
-	console.log(coordinates);
-	clearInterval(interval);
+function getBestScore() {
+	const bestScore = document.querySelector('.best-score');
+	const statistics = getStatisticsFromStorage();
+	const size = getGameSize();
+	bestScore.innerHTML = statistics[size];
+}
+
+function updateBestScore() {
+	const statistics = getStatisticsFromStorage();
+	const size = getGameSize();
+	const score = +scoreContainer.innerHTML;
+
+	if (statistics[size] < score) {
+		const value = JSON.stringify({
+			...statistics, [size]: score
+		});
+		localStorage.setItem('snake-statistics', value)
+	}
+}
+
+function getStatisticsFromStorage() {
+	const defaultStatistics = { s: 0, m: 0, l: 0 };
+	const statistics = localStorage.getItem('snake-statistics');
+	return statistics ? JSON.parse(statistics) : defaultStatistics;
+}
+
+function getGameSize() {
+	return rows < 10 ? 's' : rows === 10 ? 'm' : 'l';
+}
+
+function updateDirection(d) {
+	direction = d
 }

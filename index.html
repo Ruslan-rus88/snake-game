@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,300;1,400;1,500&family=Solitreo&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
     <title>Snake</title>
   </head>
   <body>
@@ -18,13 +22,24 @@
       <div class="snake__wrapper">
         <h1 class="snake__title snake__title--primary">Snake</h1>
         <div class="snake__box snake__box--info">
-          <div class="snake__score-box">
+          <div class="snake__info-box snake__info-box--score">
+            <span class="snake__title snake__title--secondary"
+              >Best Score:
+            </span>
+            <span class="best-score">0</span>
+          </div>
+          <div class="snake__info-box snake__info-box--score">
             <span class="snake__title snake__title--secondary">Score: </span>
             <span class="score">0</span>
           </div>
-          <button class="snake__btn snake__btn--new-game" onclick="startGame()">
-            New Game
-          </button>
+          <div class="snake__info-box snake__info-box--actions">
+            <button
+              class="snake__btn snake__btn--new-game"
+              onclick="startGame()"
+            >
+              New Game
+            </button>
+          </div>
         </div>
 
         <div class="snake__box snake__box--playground"></div>
@@ -32,7 +47,7 @@
         <div class="snake__box snake__box--config">
           <div class="config">
             <div class="config__box config__box--title">
-              <h2 class="config__title">Select configuration</h2>
+              <h2 class="config__title">Game Size</h2>
             </div>
             <div class="config__box config__box--options">
               <form id="config" class="config__form">
@@ -79,10 +94,38 @@
             </div>
           </div>
         </div>
+
+        <div class="snake__box snake__box--directions">
+          <div class="directions">
+            <button
+              class="directions__btn directions__btn--up"
+              onclick="updateDirection('u')"
+            >
+              <span class="material-symbols-outlined"> arrow_upward</span>
+            </button>
+            <button
+              class="directions__btn directions__btn--left"
+              onclick="updateDirection('l')"
+            >
+              <span class="material-symbols-outlined"> arrow_back</span>
+            </button>
+            <button
+              class="directions__btn directions__btn--down"
+              onclick="updateDirection('d')"
+            >
+              <span class="material-symbols-outlined"> arrow_downward</span>
+            </button>
+            <button
+              class="directions__btn directions__btn--right"
+              onclick="updateDirection('r')"
+            >
+              <span class="material-symbols-outlined"> arrow_forward </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <button onclick="pause()">pause</button>
     <script src="./script.js"></script>
   </body>
 </html>
