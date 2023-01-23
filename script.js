@@ -418,6 +418,7 @@ function getGameSize() {
 	return rows < 10 ? 's' : rows === 10 ? 'm' : 'l';
 }
 
-function updateDirection(d) {
-	direction = d
+function onDirectionButtonClick(d) {
+	direction = d;
+	startMovement();
 }
