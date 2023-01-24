@@ -88,16 +88,24 @@ function monitorMovements() {
 		const name = event.key;
 		switch (name) {
 			case 'ArrowUp':
+			case 'w':
 				direction = direction === 'd' ? 'd' : 'u';
+				directionButtonFocus('.directions__btn--up');
 				break;
 			case 'ArrowDown':
+			case 's':
 				direction = direction === 'u' ? 'u' : 'd';
+				directionButtonFocus('.directions__btn--down');
 				break;
 			case 'ArrowRight':
+			case 'd':
 				direction = direction === 'l' ? 'l' : 'r';
+				directionButtonFocus('.directions__btn--right');
 				break;
 			case 'ArrowLeft':
+			case 'a':
 				direction = direction === 'r' ? 'r' : 'l';
+				directionButtonFocus('.directions__btn--left');
 				break;
 			case ' ':
 				clearInterval(interval);
@@ -105,7 +113,7 @@ function monitorMovements() {
 			default:
 				break;
 		}
-		if (isGameStarted && name !== ' ') {
+		if (isGameStarted && name !== '  ') {
 			startMovement();
 		}
 	});
@@ -419,6 +427,24 @@ function getGameSize() {
 }
 
 function onDirectionButtonClick(d) {
-	direction = d;
+	switch (d) {
+		case 'u':
+			direction = direction === 'd' ? 'd' : 'u';
+			break;
+		case 'd':
+			direction = direction === 'u' ? 'u' : 'd';
+			break;
+		case 'r':
+			direction = direction === 'l' ? 'l' : 'r';
+			break;
+		case 'l':
+			direction = direction === 'r' ? 'r' : 'l';
+			break;
+	}
 	startMovement();
+}
+
+function directionButtonFocus(className) {
+	const btn = document.querySelector(className);
+	btn.focus();
 }

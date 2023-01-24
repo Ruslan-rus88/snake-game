@@ -23,7 +23,6 @@ button {
 
 .snake__wrapper {
   width: 100%;
-  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +51,6 @@ button {
 
 @media screen and (max-width: 400px) {
   .snake__box--info {
-    /* flex-direction: column; */
     margin-bottom: 10px;
   }
 }
@@ -79,6 +77,11 @@ button {
 .snake__info-box {
 }
 
+.snake__info-box--best-score {
+  font-size: 18px;
+  color: rgb(224, 10, 10);
+}
+
 .snake__info-box--score {
   font-size: 18px;
 }
@@ -89,10 +92,10 @@ button {
 .snake__box--playground {
   width: 500px;
   height: 500px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vw - 40px);
+  max-width: 100vw;
+  max-height: 100vw;
   background-image: url('./assets/images/grass.jpeg');
-  border: 10px solid rgba(12, 92, 12, 0.82);
+  border: 5px solid rgba(4, 36, 4, 0.369);
   box-shadow: 0 6px 14px 3px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
 }
@@ -112,7 +115,7 @@ button {
   transform: translate3d(-50%, -50%, 0);
   width: 10%;
   height: 10%;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.749);
   border-radius: 50%;
 }
 
@@ -354,14 +357,17 @@ button {
 }
 
 .directions__btn {
-  background-color: rgba(6, 55, 4, 0.816);
+  background-color: rgb(224, 10, 10);
   color: #fff;
 }
 
 .directions__btn:hover,
 .directions__btn:active,
 .directions__btn:focus {
-  background-color: rgba(10, 102, 21, 0.769);
+  background-color: rgb(255, 2, 2);
+  transition: background-color 0.3s;
+  border: none;
+  outline: none;
 }
 
 .directions__btn--up {
